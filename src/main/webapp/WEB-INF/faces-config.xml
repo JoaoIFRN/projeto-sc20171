@@ -9,4 +9,7 @@
                       <var>rotulos</var>
                   </resource-bundle>
               </application>
+              <lifecycle>
+                  <phase-listener>listeners.LoginListener</phase-listener>
+              </lifecycle>
 </faces-config>

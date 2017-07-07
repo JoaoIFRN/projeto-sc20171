@@ -5,6 +5,7 @@
  */
 package persistencia;
 
+import java.io.Serializable;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import modelo.Usuario;
@@ -13,7 +14,7 @@ import modelo.Usuario;
  *
  * @author João
  */
-public class UsuarioDAO extends DAO<Usuario, Integer> {
+public class UsuarioDAO extends DAO<Usuario, Integer> implements Serializable {
 
     public UsuarioDAO() {
         super(Usuario.class);
@@ -24,12 +25,12 @@ public class UsuarioDAO extends DAO<Usuario, Integer> {
         Query query = getEntityManager().createQuery(jpql, Usuario.class);
         query.setParameter("pemail", usuario.getEmail());
         query.setParameter("psenha", usuario.getSenha());
-        try{
+        try {
             query.getSingleResult();
             return true;
-        }catch(NoResultException exp){
-            return false; 
-        }               
+        } catch (NoResultException exp) {
+            return false;
+        }
     }
 
 }

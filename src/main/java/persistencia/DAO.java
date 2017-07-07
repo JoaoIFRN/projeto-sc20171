@@ -5,6 +5,8 @@
  */
 package persistencia;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -15,7 +17,7 @@ import javax.persistence.EntityManager;
  * @param <T>
  * @param <I>
  */
-public class DAO <T,I>{
+public class DAO <T,I> implements Serializable {
     
     private Class<T> classe;
     
@@ -54,6 +56,6 @@ public class DAO <T,I>{
     
     public List<T> listar(){
         String jpql = "select a from " + classe.getSimpleName() + " a";
-        return entityManager.createQuery(jpql, classe).getResultList();
+        return entityManager.createQuery(jpql, classe).getResultList();        
     }
 }

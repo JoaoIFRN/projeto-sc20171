@@ -20,23 +20,28 @@ import persistencia.UsuarioDAO;
 @Named
 @RequestScoped
 public class LoginBean {
-    
+
     @Inject
     private Usuario usuario;
     @Inject
     private UsuarioDAO usuarioDAO;
     @Inject
     private FacesContext context;
-    
-    public String realizarLogin(){        
-        if (usuarioDAO.existeUsuario(usuario)){
-            context.getExternalContext().getSessionMap().put("usuario_logado", usuario);           
+
+    public String realizarLogin() {
+        if (usuarioDAO.existeUsuario(usuario)) {
+            context.getExternalContext().getSessionMap().put("usuario_logado", usuario);
             return "/principal.xhtml?faces-redirect=true";
-        }else{
+        } else {
             context.getExternalContext().getFlash().setKeepMessages(true);
-            context.addMessage(null, new FacesMessage("Falha no login"));                        
-            return "/login.xhtml?faces-redirect=true";            
+            context.addMessage(null, new FacesMessage("Falha no login"));
+            return "/login.xhtml?faces-redirect=true";
         }
+    }
+
+    public String deslogar() {
+        context.getExternalContext().getSessionMap().remove("usuario_logado");
+        return "login?faces-redirect=true";
     }
 
     public Usuario getUsuario() {
@@ -46,5 +51,5 @@ public class LoginBean {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
+
 }
