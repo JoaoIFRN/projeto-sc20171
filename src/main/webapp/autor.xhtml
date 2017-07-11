@@ -18,7 +18,7 @@
         </ui:define>
 
         <ui:define name="cabecalho">
-            <h1><p:outputPanel>Autor</p:outputPanel></h1>
+            Autor
         </ui:define>
 
         <ui:define name="conteudo">
@@ -35,10 +35,10 @@
                         <p:message for="nome" id="messageNome" />
 
                         <p:outputLabel value="Biografia" for="biografia" />
-                        <p:inputText id="biografia" value="#{autorBean.autor.biografia}" required="true" validatorMessage="Biografia necessária">                            
+                        <p:inputTextarea id="biografia" rows="6" cols="33" value="#{autorBean.autor.biografia}" required="true" validatorMessage="Biografia necessária">                        
                             <f:passThroughAttribute name="placeholder" value="Biografia do autor" />                            
                             <f:ajax event="blur" render="messageBiografiaAutor" />
-                        </p:inputText> 
+                        </p:inputTextarea> 
                         <p:message for="biografia" id="messageBiografiaAutor" />
 
                         <p:commandButton value="Gravar" action="#{autorBean.gravar}" 
@@ -60,13 +60,8 @@
                     <p:column>#{autor.nome}</p:column>
 
                     <p:column>
-
-                        <p:commandButton value="Atualizar" update=":autor">
-                            <f:setPropertyActionListener value="#{autor}" target="#{autorBean.autor}" />
-                        </p:commandButton>
-
-                        <p:commandButton value="Remover" action="#{autorBean.remover(autor)}" 
-                                         update="@form" />
+                        <p:commandButton value="Atualizar" action="#{autorBean.atualizar()}" process="@form" update="@form :autor"/>
+                        <p:commandButton value="Remover" action="#{autorBean.remover(autor)}" update="@form :autor" />
                     </p:column>
                 </p:dataTable>>
             </h:form>		

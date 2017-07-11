@@ -6,7 +6,6 @@
 package persistencia;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -25,7 +24,7 @@ public class DAO <T,I> implements Serializable {
     private EntityManager entityManager;
 
     public EntityManager getEntityManager() {
-        return entityManager;
+        return entityManager;        
     }        
 
     public DAO(Class<T> classe) {
@@ -50,7 +49,7 @@ public class DAO <T,I> implements Serializable {
     
     public void remove(T t){
         entityManager.getTransaction().begin();
-        entityManager.remove(t);
+        entityManager.remove(entityManager.merge(t));
         entityManager.getTransaction().commit();        
     }
     

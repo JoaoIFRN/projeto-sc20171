@@ -12,8 +12,10 @@
     <h:body>
         <div id="cabecalho">
             <p:graphicImage library="img" name="logo.png"/>
-            <ui:insert name="cabecalho"/>                            
+            <h1><p:outputPanel><ui:insert name="cabecalho"/></p:outputPanel></h1>   
         </div>
+
+
         <div id="conteudo">
             <ui:insert name="conteudo"/>
         </div>

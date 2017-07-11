@@ -5,6 +5,7 @@
  */
 package util;
 
+import java.io.Serializable;
 import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
 
@@ -12,7 +13,7 @@ import javax.faces.context.FacesContext;
  *
  * @author João
  */
-public class FabricaFacesContext {
+public class FabricaFacesContext implements Serializable{
     @Produces
     public FacesContext getFacesContext(){
         return FacesContext.getCurrentInstance();

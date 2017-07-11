@@ -7,8 +7,9 @@ package beans;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 import modelo.Autor;
@@ -19,7 +20,7 @@ import persistencia.AutorDAO;
  * @author João
  */
 @Named
-@RequestScoped
+@SessionScoped
 public class AutorBean implements Serializable {
 
     @Inject
@@ -27,6 +28,7 @@ public class AutorBean implements Serializable {
     @Inject
     private AutorDAO autorDAO;
     private Integer autorId;
+    private DataModel<Autor> autores;
 
     public Integer getAutorId() {
         return autorId;
@@ -46,16 +48,22 @@ public class AutorBean implements Serializable {
         } else {
             autorDAO.atualizar(this.autor);
         }
-
         this.autor = new Autor();
     }
 
-    public void remover(Autor autor) {     
-        autorDAO.remove(autor);
+    public void atualizar() {
+        this.autor = autores.getRowData();        
     }
 
-    public List<Autor> getAutores() {
-        return autorDAO.listar();
+    public void remover(Autor autor) {
+        autorDAO.remove(autor);
+        this.autor = new Autor();
+    }
+
+    public DataModel<Autor> getAutores() {
+        List<Autor> list = autorDAO.listar();
+        autores = new ListDataModel<Autor>(list);
+        return autores;
     }
 
     public Autor getAutor() {

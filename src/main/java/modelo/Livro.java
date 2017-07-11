@@ -6,6 +6,8 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -15,6 +17,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -31,8 +35,10 @@ public class Livro implements Serializable {
     private String titulo;
     private String descricao;
     private String ISBN;
+    @Temporal(TemporalType.DATE)
+    private Calendar dataLancamento = Calendar.getInstance();
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Autor> autores;
+    private List<Autor> autores = new ArrayList();
 
     public Integer getId() {
         return id;
@@ -74,6 +80,14 @@ public class Livro implements Serializable {
         this.autores = autores;
     }
 
+    public Calendar getDataLancamento() {
+        return dataLancamento;
+    }
+
+    public void setDataLancamento(Calendar dataLancamento) {
+        this.dataLancamento = dataLancamento;
+    }    
+    
     @Override
     public String toString() {
         return "Livro{" + "id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", ISBN=" + ISBN + ", autores=" + autores + '}';
@@ -102,6 +116,14 @@ public class Livro implements Serializable {
             return false;
         }
         return true;
+    }
+
+    public void adicionaAutor(Autor autor) {
+       autores.add(autor);
+    }
+
+    public void removeAutor(Autor autor) {
+        autores.remove(autor);
     }
 
 }
